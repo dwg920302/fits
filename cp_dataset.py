@@ -18,18 +18,14 @@ class CPDataset(data.Dataset):
     def __init__(self, opt):
         super(CPDataset, self).__init__()
         # base setting
-        self.opt = opt
         self.root = opt.dataroot
-        self.datamode = opt.datamode # train or test or self-defined
-        self.stage = opt.stage # GMM or TOM
+        self.datamode = opt.datamode
+        self.stage = opt.stage
         self.data_list = opt.data_list
         self.fine_height = opt.fine_height
         self.fine_width = opt.fine_width
         self.radius = opt.radius
         self.data_path = osp.join(opt.dataroot, opt.datamode)
-        # self.transform = transforms.Compose([
-        #         transforms.ToTensor(),   \
-        #         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
         self.transform = transforms.Compose([  \
                 transforms.ToTensor(),   \
                 transforms.Normalize((0.5,), (0.5,))])
@@ -42,6 +38,8 @@ class CPDataset(data.Dataset):
                 im_name, c_name = line.strip().split()
                 im_names.append(im_name)
                 c_names.append(c_name)
+
+        # 새로운 파일에 대해서 add 필요
 
         self.im_names = im_names
         self.c_names = c_names
@@ -64,7 +62,7 @@ class CPDataset(data.Dataset):
         c = self.transform(c)  # [-1,1]
         cm_array = np.array(cm)
         cm_array = (cm_array >= 128).astype(np.float32)
-        cm = torch.from_numpy(cm_array) # [0,1]
+        cm = torch.from_numpy(cm_array) # [0., 1.]
         cm.unsqueeze_(0)
 
         # person image 
