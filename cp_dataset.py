@@ -3,12 +3,14 @@ import torch
 import torch.utils.data as data
 import torchvision.transforms as transforms
 
-from PIL import Image
-from PIL import ImageDraw
-
 import os.path as osp
 import numpy as np
 import json
+
+from PIL import Image
+from PIL import ImageDraw
+
+
 
 class CPDataset(data.Dataset):
     """Dataset for CP-VTON.
@@ -179,17 +181,16 @@ if __name__ == "__main__":
     
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataroot", default = "data")
-    parser.add_argument("--datamode", default = "train")
-    parser.add_argument("--stage", default = "GMM")
-    # parser.add_argument("--stage", default = "TOM")
-    parser.add_argument("--data_list", default = "train_pairs.txt")
-    parser.add_argument("--fine_width", type=int, default = 192)
-    parser.add_argument("--fine_height", type=int, default = 256)
-    parser.add_argument("--radius", type=int, default = 3)
-    parser.add_argument("--shuffle", action='store_true', help='shuffle input data')
-    parser.add_argument('-b', '--batch-size', type=int, default=4)
-    parser.add_argument('-j', '--workers', type=int, default=1)
+    parser.add_argument("--dataroot", default = "data", help="path")
+    parser.add_argument("--datamode", default = "train", help="train or test")
+    parser.add_argument("--stage", default = "GMM", help="GMM or TOM")
+    parser.add_argument("--data_list", default = "train_pairs.txt", help="train_pairs or test_pairs")
+    parser.add_argument("--fine_width", type=int, default = 192, help="image_width")
+    parser.add_argument("--fine_height", type=int, default = 256, help="image_height")
+    parser.add_argument("--radius", type=int, default = 2, help="radius of point for pose_map")
+    parser.add_argument("--shuffle", action='store_true', help="shuffle input data")
+    parser.add_argument('-b', '--batch-size', type=int, default=4, help="batch-size")
+    parser.add_argument('-j', '--workers', type=int, default=1,help="gpu option")
     
     opt = parser.parse_args()
     dataset = CPDataset(opt)
@@ -200,5 +201,4 @@ if __name__ == "__main__":
     first_item = dataset.__getitem__(0)
     first_batch = data_loader.next_batch()
 
-#    from IPython import embed; embed()
 
