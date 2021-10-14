@@ -14,6 +14,10 @@ from PIL import ImageDraw
 
 from transforms import get_affine_transform
 
+from icecream import ic
+
+import matplotlib.pyplot as plt
+
 # import simple_extractor
 
 
@@ -100,16 +104,17 @@ class CPDataset(data.Dataset):
         # simple_extractor.main()
 
         # load parsing image
+
+        # ATL에 맞추었음, 혹여나 다른 모델을 사용할 경우 바꿔주어야 함
         parse_name = im_name.replace('.jpg', '.png')
         im_parse = Image.open(osp.join(self.data_path, 'image-parse', parse_name))
         parse_array = np.array(im_parse)
         parse_shape = (parse_array > 0).astype(np.float32)
         parse_head = (parse_array == 1).astype(np.float32) + \
                 (parse_array == 2).astype(np.float32) + \
-                (parse_array == 4).astype(np.float32) + \
-                (parse_array == 13).astype(np.float32)
-        parse_cloth = (parse_array == 5).astype(np.float32) + \
-                (parse_array == 6).astype(np.float32) + \
+                (parse_array == 3).astype(np.float32) + \
+                (parse_array == 11).astype(np.float32) 
+        parse_cloth = (parse_array == 4).astype(np.float32) + \
                 (parse_array == 7).astype(np.float32)
        
         # shape downsample
@@ -119,6 +124,8 @@ class CPDataset(data.Dataset):
         shape = self.transform(parse_shape) # [-1,1]
         phead = torch.from_numpy(parse_head) # [0,1]
         pcm = torch.from_numpy(parse_cloth) # [0,1]
+
+        
 
         # upper cloth
         im_c = im * pcm + (1 - pcm) # [-1,1], fill 1 for other parts

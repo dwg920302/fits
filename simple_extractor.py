@@ -47,7 +47,7 @@ def get_arguments():
     """
     parser = argparse.ArgumentParser(description="Self Correction for Human Parsing")
 
-    # parser.add_argument("--dataset", type=str, default='lip', choices=['lip', 'atr', 'pascal'])
+    # parser.add_argument("--dataset", type=str, default='atr', choices=['lip', 'atr', 'pascal'])
     # parser.add_argument("--model-restore", type=str, default='checkpoints', help="restore pretrained model parameters.")
     # parser.add_argument("--gpu", type=str, default='0', help="choose gpu device.")
     # parser.add_argument("--input-dir", type=str, default='inputs', help="path of input image folder.")
@@ -57,8 +57,8 @@ def get_arguments():
     # 접근 권한 문제가 있음
     # 1. 수정 시 파일 경로를 명확하게 할 것
 
-    parser.add_argument("--dataset", type=str, default='lip', choices=['lip', 'atr', 'pascal'])
-    parser.add_argument("--model-restore", type=str, default='checkpoints/exp-schp-201908261155-lip.pth', help="restore pretrained model parameters.")
+    parser.add_argument("--dataset", type=str, default='atr', choices=['lip', 'atr', 'pascal'])
+    parser.add_argument("--model-restore", type=str, default='checkpoints/exp-schp-201908301523-atr.pth', help="restore pretrained model parameters.")
     parser.add_argument("--gpu", type=str, default='0', help="choose gpu device.")
     parser.add_argument("--input-dir", type=str, default='inputs', help="path of input image folder.")
     parser.add_argument("--output-dir", type=str, default='outputs', help="path of output image folder.")

@@ -17,6 +17,8 @@ import networks
 from transforms import transform_logits
 from datasets import SimpleFolderDataset
 
+# Use ATR
+
 dataset_settings = {
     'lip': {
         'input_size': [473, 473],
@@ -50,18 +52,18 @@ def get_arguments():
     # 경로를 잘 지정해주시기 바랍니다.
     # 위쪽은 train 아래쪽은 test
 
-    parser.add_argument("--dataset", type=str, default='lip', choices=['lip', 'atr', 'pascal'])
-    parser.add_argument("--model-restore", type=str, default='checkpoints/exp-schp-201908261155-lip.pth', help="restore pretrained model parameters.")
+    parser.add_argument("--dataset", type=str, default='atr', choices=['lip', 'atr', 'pascal'])
+    parser.add_argument("--model-restore", type=str, default='checkpoints/exp-schp-201908301523-atr.pth', help="restore pretrained model parameters.")
     parser.add_argument("--gpu", type=str, default='0', help="choose gpu device.")
     parser.add_argument("--input-dir", type=str, default='data/train/image', help="path of input image folder.")
     parser.add_argument("--output-dir", type=str, default='data/train/image-parse', help="path of output image folder.")
     parser.add_argument("--logits", action='store_true', default=False, help="whether to save the logits.")
 
-    # parser.add_argument("--dataset", type=str, default='lip', choices=['lip', 'atr', 'pascal'])
-    # parser.add_argument("--model-restore", type=str, default='checkpoints/exp-schp-201908261155-lip.pth', help="restore pretrained model parameters.")
+    # parser.add_argument("--dataset", type=str, default='atr', choices=['lip', 'atr', 'pascal'])
+    # parser.add_argument("--model-restore", type=str, default='checkpoints/exp-schp-201908301523-atr.pth', help="restore pretrained model parameters.")
     # parser.add_argument("--gpu", type=str, default='0', help="choose gpu device.")
     # parser.add_argument("--input-dir", type=str, default='data/test/image', help="path of input image folder.")
-    # parser.add_argument("--output-dir", type=str, default='data/test/image-parse', help="path of output image folder.")
+    # parser.add_argument("--output-dir", type=str, default='data/test/image-parse-atr', help="path of output image folder.")
     # parser.add_argument("--logits", action='store_true', default=False, help="whether to save the logits.")
 
     return parser.parse_args()
