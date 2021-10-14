@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-
-from icecream import ic
+# train, test 변환용 임시 코드
 
 import os
 import torch
@@ -17,7 +16,6 @@ import torchvision.transforms as transforms
 import networks
 from transforms import transform_logits
 from datasets import SimpleFolderDataset
-
 
 dataset_settings = {
     'lip': {
@@ -40,6 +38,7 @@ dataset_settings = {
     }
 }
 
+
 def get_arguments():
     """Parse all the arguments provided from the CLI.
     Returns:
@@ -47,22 +46,23 @@ def get_arguments():
     """
     parser = argparse.ArgumentParser(description="Self Correction for Human Parsing")
 
-    # parser.add_argument("--dataset", type=str, default='lip', choices=['lip', 'atr', 'pascal'])
-    # parser.add_argument("--model-restore", type=str, default='checkpoints', help="restore pretrained model parameters.")
-    # parser.add_argument("--gpu", type=str, default='0', help="choose gpu device.")
-    # parser.add_argument("--input-dir", type=str, default='inputs', help="path of input image folder.")
-    # parser.add_argument("--output-dir", type=str, default='outputs', help="path of output image folder.")
-    # parser.add_argument("--logits", action='store_true', default=False, help="whether to save the logits.")
-
-    # 접근 권한 문제가 있음
-    # 1. 수정 시 파일 경로를 명확하게 할 것
+    # 원래 있던 train/test parse_image 덮어쓰기용 코드
+    # 경로를 잘 지정해주시기 바랍니다.
+    # 위쪽은 train 아래쪽은 test
 
     parser.add_argument("--dataset", type=str, default='lip', choices=['lip', 'atr', 'pascal'])
     parser.add_argument("--model-restore", type=str, default='checkpoints/exp-schp-201908261155-lip.pth', help="restore pretrained model parameters.")
     parser.add_argument("--gpu", type=str, default='0', help="choose gpu device.")
-    parser.add_argument("--input-dir", type=str, default='inputs', help="path of input image folder.")
-    parser.add_argument("--output-dir", type=str, default='outputs', help="path of output image folder.")
+    parser.add_argument("--input-dir", type=str, default='data/train/image', help="path of input image folder.")
+    parser.add_argument("--output-dir", type=str, default='data/train/image-parse', help="path of output image folder.")
     parser.add_argument("--logits", action='store_true', default=False, help="whether to save the logits.")
+
+    # parser.add_argument("--dataset", type=str, default='lip', choices=['lip', 'atr', 'pascal'])
+    # parser.add_argument("--model-restore", type=str, default='checkpoints/exp-schp-201908261155-lip.pth', help="restore pretrained model parameters.")
+    # parser.add_argument("--gpu", type=str, default='0', help="choose gpu device.")
+    # parser.add_argument("--input-dir", type=str, default='data/test/image', help="path of input image folder.")
+    # parser.add_argument("--output-dir", type=str, default='data/test/image-parse', help="path of output image folder.")
+    # parser.add_argument("--logits", action='store_true', default=False, help="whether to save the logits.")
 
     return parser.parse_args()
 
@@ -106,7 +106,6 @@ def main():
 
     model = networks.init_model('resnet101', num_classes=num_classes, pretrained=None)
 
-    ic(args.model_restore)
     state_dict = torch.load(args.model_restore)['state_dict']
     from collections import OrderedDict
     new_state_dict = OrderedDict()

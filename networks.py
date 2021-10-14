@@ -1,4 +1,6 @@
 #coding=utf-8
+from __future__ import absolute_import
+
 import torch
 import torch.nn as nn
 from torch.nn import init
@@ -6,6 +8,7 @@ from torchvision import models
 import os
 
 import numpy as np
+
 
 def weights_init_normal(m):
     classname = m.__class__.__name__
@@ -764,3 +767,14 @@ def resnet101(num_classes=20, pretrained='./models/resnet101-imagenet.pth'):
     settings = pretrained_settings['resnet101']['imagenet']
     initialize_pretrained_model(model, settings, pretrained)
     return model
+
+
+__factory = {
+    'resnet101': resnet101,
+}
+
+
+def init_model(name, *args, **kwargs):
+    if name not in __factory.keys():
+        raise KeyError("Unknown model arch: {}".format(name))
+    return __factory[name](*args, **kwargs)

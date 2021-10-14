@@ -14,6 +14,29 @@ from PIL import ImageDraw
 
 from transforms import get_affine_transform
 
+# import simple_extractor
+
+
+# dataset_settings = {
+#     'lip': {
+#         'input_size': [473, 473],
+#         'num_classes': 20,
+#         'label': ['Background', 'Hat', 'Hair', 'Glove', 'Sunglasses', 'Upper-clothes', 'Dress', 'Coat',
+#                   'Socks', 'Pants', 'Jumpsuits', 'Scarf', 'Skirt', 'Face', 'Left-arm', 'Right-arm',
+#                   'Left-leg', 'Right-leg', 'Left-shoe', 'Right-shoe']
+#     },
+#     'atr': {
+#         'input_size': [512, 512],
+#         'num_classes': 18,
+#         'label': ['Background', 'Hat', 'Hair', 'Sunglasses', 'Upper-clothes', 'Skirt', 'Pants', 'Dress', 'Belt',
+#                   'Left-shoe', 'Right-shoe', 'Face', 'Left-leg', 'Right-leg', 'Left-arm', 'Right-arm', 'Bag', 'Scarf']
+#     },
+#     'pascal': {
+#         'input_size': [512, 512],
+#         'num_classes': 7,
+#         'label': ['Background', 'Head', 'Torso', 'Upper Arms', 'Lower Arms', 'Upper Legs', 'Lower Legs'],
+#     }
+# }
 
 class CPDataset(data.Dataset):
     """Dataset for CP-VTON.
@@ -74,6 +97,7 @@ class CPDataset(data.Dataset):
 
         # person image to parsing image (new part, before load parsing image)
 
+        # simple_extractor.main()
 
         # load parsing image
         parse_name = im_name.replace('.jpg', '.png')
@@ -268,3 +292,4 @@ class SimpleFolderDataset(data.Dataset):
         }
 
         return input, meta
+
