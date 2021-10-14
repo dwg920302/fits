@@ -6,6 +6,8 @@ data/test/*
 log/*
 *.sh
 result/*/*
+checkpoints/*
+unused
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,vs

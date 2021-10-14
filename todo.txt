@@ -1,1 +1,1 @@
-clothes_mask 작성하는 코드 필요 ->
+[1] Segmentation을 실시간으로 받는 코드
