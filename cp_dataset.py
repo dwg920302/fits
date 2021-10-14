@@ -153,8 +153,10 @@ class CPDataLoader(object):
     def __init__(self, opt, dataset):
         super(CPDataLoader, self).__init__()
 
-        if opt.shuffle :
+        # if opt.shuffle == 1 :
+        if opt.shuffle:
             train_sampler = torch.utils.data.sampler.RandomSampler(dataset)
+            # 무작위로 섞어줌
         else:
             train_sampler = None
 
@@ -186,6 +188,7 @@ if __name__ == "__main__":
     parser.add_argument("--fine_width", type=int, default = 192, help="image_width")
     parser.add_argument("--fine_height", type=int, default = 256, help="image_height")
     parser.add_argument("--radius", type=int, default = 2, help="radius of point for pose_map")
+    # parser.add_argument("--shuffle", action='store_true', help="shuffle input data")
     parser.add_argument("--shuffle", action='store_true', help="shuffle input data")
     parser.add_argument('-b', '--batch-size', type=int, default=4, help="batch-size")
     parser.add_argument('-j', '--workers', type=int, default=1,help="gpu option")
